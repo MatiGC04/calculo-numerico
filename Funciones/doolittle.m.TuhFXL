@@ -1,0 +1,14 @@
+
+
+function[L,U] = doolittle (A)
+  n = length(A(:,end));
+  for k = 1:1:n
+    A(k+1:n, k) = A(k+1:n,k+1)/A(k,k);
+    A(k+1:n,k+1:n) = A(k+1:n, k+1:n) - A(k+1:n,k)*A(k,k+1:n);
+  endfor
+
+  %eye(n) crea una matriz identidad de nxn
+  L = eye(n)+tril(A,-1); %tril(A,.1) extrae los elementos de la diagonal inferior, pero excluyendo los de la diag principal
+  U = triu(A); %extrae la parte de la triangular superior de la matriz A, incluyendo la diagonal principal POR DEFECTO
+
+endfunction

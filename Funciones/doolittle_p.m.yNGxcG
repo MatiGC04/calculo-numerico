@@ -1,0 +1,23 @@
+function [L, U, A, r, P] = doolitle_p(A)
+  n = size(A, 1);
+  L = eye(n);
+  U = zeros(n);
+  P = eye(n);
+  r = 1:n;
+  for k = 1:n-1
+    % Encuentra el pivote máximo en la columna k debajo de la diagonal
+    [pmax, p] = max(abs(A(r(k:n), k)));
+    p = p + k - 1; % Encuentra el pivote máximo en la columna k debajo de la diagonal
+    %si el pibote es diferente de la pos k , intercambio
+    if p ~= k
+      r([p k]) = r([k p]);
+    endif
+    P = eye(length(r));
+    P= P(r, :); %Actualiza la m. de permutacion
+    A(r(k+1:n), k) = A(r(k+1:n), k)/A(r(k), k); %Calcula multiplicadores
+    A(r(k+1:n), k+1:n) = A(r(k+1:n), k+1:n) - A(r(k+1:n), k) * A(r(k), k+1:n); %aplica eliminacion gauussiana
+  endfor
+
+   U = triu(A(r, :));
+   L = eye(n) + tril(A(r, :), -1);
+endfunction
