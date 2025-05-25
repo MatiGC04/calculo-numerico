@@ -1,0 +1,9 @@
+function[A,b,x0]=armar_sistema(Nh,L,fj)
+v0=6*ones(Nh-3,1);
+v1=-4*ones(Nh-4,1);
+v2=ones(Nh-5,1);
+A=diag(v0)+diag(v1,1)+diag(v2,2)+diag(v1,-1)+diag(v2,-2);
+h=L/Nh;
+b=h^4*fj*ones(Nh-3,1);
+x0=zeros(Nh-3,1);
+endfunction
